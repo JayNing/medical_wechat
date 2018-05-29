@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/mobileSelect.css">
+    <link rel="stylesheet" href="../static/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/plugins/dist/css/weui.min.css">
+
+</head>
+<body style="background-color: #F2FAFC;">
+
+<div class="order-contents">
+    <!--头部-->
+    <div class="layui-padd15  weui-bg-fff layui-info-lg weui-margin-bot">
+        <div class="layui-row ">
+            <div class="layui-col-xs6 layui-text-left">
+                <label class="layui-label-color1">头像</label>
+            </div>
+            <div class="layui-col-xs6 login-wjm">
+                <img id="headImgUrl" src="../static/images/mv.jpg" class="layui-order-tx"/>
+            </div>
+        </div>
+    </div>
+    <!--头部end-->
+    <!--内容-->
+    <div class="layui-row  weui-bg-fff weui-margin-bot layui-padd15">
+        <div class="layui-col-xs12   bot-solid-2 layui-line-h50">
+            <div class="layui-col-xs6 layui-label-color1 ">姓名：</div>
+            <div class="layui-col-xs6 login-wjm weui-fcolor3" id="username"></div>
+        </div>
+        <div class="layui-col-xs12  bot-solid-2 layui-line-h50  info-sex" >
+            <div class="layui-col-xs6 layui-label-color1">性别：</div>
+            <div class="layui-col-xs5 login-wjm weui-fcolor3" id="sex"></div>
+            <input type="hidden" value="" id="sexType" />
+            <div class="layui-col-xs1 login-wjm weui-fcolor3">
+            <i class="layui-icon layui-icon-color">&#xe602;</i>
+        </div>
+        </div>
+        <div class="layui-col-xs12  bot-solid-2 layui-line-h50" onclick="location.href = '/templates/changePhone.html'">
+            <div class="layui-col-xs6 layui-label-color1">手机号：</div>
+            <input type="hidden" id="phoneId" />
+            <div class="layui-col-xs5 login-wjm weui-fcolor3" id="phone"></div>
+            <div class="layui-col-xs1 login-wjm weui-fcolor3">
+                <i class="layui-icon layui-icon-color">&#xe602;</i>
+            </div>
+        </div>
+        <div class="layui-col-xs12  bot-solid-2 layui-line-h50">
+            <div class="layui-col-xs6 layui-label-color1">身份证号：</div>
+            <div class="layui-col-xs6 login-wjm weui-fcolor3" id="idCard"></div>
+        </div>
+        <div class="layui-col-xs12   layui-line-h50 " >
+            <div class="layui-col-xs6 layui-label-color1">生日：</div>
+            <div class="layui-col-xs5 login-wjm weui-fcolor3">
+                <a href="javascript:;" id="showDatePicker" class="weui-fcolor3" >1980-01-01</a>
+            </div>
+            <div class="layui-col-xs1 login-wjm weui-fcolor3">
+                <i class="layui-icon layui-icon-color">&#xe602;</i>
+            </div>
+        </div>
+        <!--<a href="javascript:;" class="weui-btn weui-btn_default" id="">日期选择器</a>-->
+    </div>
+    <!--内容end-->
+    <!--性别弹出-->
+    <div class="layui-row  layui-footer-dw">
+        <div class="layui-col-xs12 weui-margin-bot layui-ft-pad">
+            <button class="layui-xb layui-xb-nan" data-value="1"><img src="../static/images/xb_nan_icon.png" class="layui-xb-icon"/>男</button>
+        </div>
+        <div class="layui-col-xs12 weui-margin-bot layui-ft-pad">
+            <button class="layui-xb layui-xb-nv" data-value="2"><img src="../static/images/xb_nv_icon.png" class="layui-xb-icon"/>女</button>
+        </div>
+        <div class="layui-col-xs12 layui-ft-pad"><button class="layui-xb layui-cancel">取消</button></div>
+    </div>
+    <div class="layui-zhezc"></div>     <!--遮罩层-->
+    <!--性别弹出end-->
+
+</div>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/plugins/layui/layui.js"></script>
+<!--<script type="text/javascript" src="../static/js/selectDate.js"></script>-->
+<!--<script type="text/javascript" src="../static/js/mobileSelect.js"></script>-->
+<script type="text/javascript" src="../static/js/zepto.min.js"></script>
+<script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+<script type="text/javascript">
+    $('#showDatePicker').on('click', function () {
+        weui.datePicker({
+            start: 1900,
+            end: new Date().getFullYear(),
+            onChange: function (result) {
+                // console.log(result);
+            },
+            onConfirm: function (result) {
+                console.log(result);
+                if (result && result.length == 3) {
+                    $("#showDatePicker").text(result[0] + "-" + result[1] + "-" + result[2]);
+                    var data = result[0] + "年" + result[1] + "月" + result[2] + "日";
+                    $.post("/regist/changeUserInfo",{birthday:data, phone: $("#phoneId").val(),type:'birthday'},function (data) {
+
+                    },"json");
+                }
+            }
+        });
+    });
+    /*设置全部参数*/
+    // $.selectDate("#select_1",{
+    //     start:1980,
+    //     end:2018,
+    //     select:[2012,5,6],
+    //     title:'生日选择'
+    // },function (data) {
+    //     console.log(data);
+    // });
+
+    // 性别弹窗
+    $(function () {
+        $('.info-sex').on('click',function () {
+            $('.layui-zhezc').show();
+            $('.layui-footer-dw').show();
+        });
+        $('.layui-xb-nan ').on('click',function () {
+            $('#sexType').val(1);
+            $('#sex').html('男');
+            $.post("/regist/changeUserInfo",{sex:1, phone: $("#phoneId").val()},function (data) {
+                $('.layui-zhezc').hide();
+                $('.layui-footer-dw').hide();
+            },"json");
+
+        });
+        $('.layui-xb-nv').on('click',function () {
+            $('#sexType').val(2);
+            $('#sex').html('女');
+
+            $.post("/regist/changeUserInfo",{sex:2, phone: $("#phoneId").val(),type:'sex'},function (data) {
+                $('.layui-zhezc').hide();
+                $('.layui-footer-dw').hide();
+            },"json");
+        })
+
+        $('.layui-cancel').on('click',function () {
+            $('.layui-zhezc').hide();
+            $('.layui-footer-dw').hide();
+        });
+
+        $('.ensure').on('click',function () {
+
+        })
+    });
+
+    init();
+
+    function init() {
+        $.ajax({
+            url : '/loadNormalUserInfo',
+            data : {
+            },
+            async: false,
+            type : 'POST',
+            dataType : 'json',
+            success : function(dataMsg){
+                console.log(dataMsg);
+                if(dataMsg.errorCode == 0){
+                    var headImgUrl = dataMsg.data.headImgUrl;
+                    var username = dataMsg.data.username;
+                    var phone = dataMsg.data.phone;
+                    var sex = dataMsg.data.sex;
+                    if(sex == 1){
+                        sex = '男';
+                    }else if(sex == 2){
+                        sex = '女';
+                    }
+                    var idCard = dataMsg.data.idCard;
+                    var birthday = dataMsg.data.birthday;
+                    $("#headImgUrl").attr('src',headImgUrl);
+                    $("#username").html(username);
+                    $("#phone").html(phone);
+                    $("#phoneId").val(phone);
+                    $("#sex").html(sex);
+                    $("#idCard").html(idCard);
+                    var birthDatas = birthday.split("-");
+                    var year = birthDatas[0];
+                    var month = birthDatas[1];
+                    if(month.indexOf(0) == 0){
+                        month = month.substr(1,2);
+                    }
+                    var day = birthDatas[2];
+                    if(day.indexOf(0) == 0){
+                        day = day.substr(1,2);
+                    }
+                    $("#showDatePicker").text(year + '-' + month + '-' + day );
+                }else{
+                    showSuccessDialog(dataMsg.errorMsg);
+                }
+            },
+            error : function(err){
+                console.log(err);
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

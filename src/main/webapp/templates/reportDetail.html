@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>报告详情</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/plugins/dist/css/weui.css">
+</head>
+<body style="background-color: #F2FAFC;">
+
+<div class="order-contents" ng-app="reportDetailApp">
+    <div ng-controller="reportLDetailController">
+       <!-- <div class="layui-padd15 weui-bg-fff weui-margin-bot">
+            <div class="layui-row">
+                <div class="layui-col-xs4">
+                    <div class="layui-form">
+                        <select ng-model="reportType" ng-change="list()" lay-verify="required" lay-ignore>
+                            <option value="1">文本</option>
+                            &lt;!&ndash;<option value="2">PDF</option>&ndash;&gt;
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="layui-row  weui-bg-fff weui-margin-bot" ng-repeat="x in datas" ng-if="reportType == 1">
+            <div  ng-if="x.columnNum  == 2">
+                <table  class="layui-tab-jiben" >
+                    <tr class="layui-tr-hd layui-tr-zdi">
+                        <td colspan="2">
+                            <p class="layui-jbx">{{x.itemName}}</p>
+                        </td>
+                    </tr>
+                    <tr class="layui-tr-hd" ng-repeat="a in x.itemDetailDTOList">
+                        <td class="td-tight td-wd">{{a.itemDetailName}}</td>
+                        <td ng-if="a.range == null" class="td-tight td-wd ">{{a.itemDetailValue}}</td>
+                        <td ng-if="a.range == 2" class="td-tight td-wd td-col-red">{{a.itemDetailValue}} &nbsp;↑</td>
+                        <td ng-if="a.range == 1" class="td-tight td-wd td-col-ls">{{a.itemDetailValue}} &nbsp;↓</td>
+                    </tr>
+                </table>
+            </div>
+            <div  ng-if="x.columnNum  == 3">
+                <table  class="layui-tab-jiben"  >
+                    <tr class="layui-tr-hd layui-tr-zdi">
+                        <td colspan="3">
+                            <p class="layui-jbx">{{x.itemName}}</p>
+                        </td>
+                    </tr>
+                    <tr class="layui-tr-hd"  ng-repeat="a in x.itemDetailDTOList">
+                        <td class="td-tight td-wd">{{a.itemDetailName}}</td>
+                        <td ng-if="a.range == null" class="td-tight td-wd ">{{a.itemDetailValue}}</td>
+                        <td ng-if="a.range == 2" class="td-tight td-wd td-col-red">{{a.itemDetailValue}} &nbsp;↑</td>
+                        <td ng-if="a.range == 1" class="td-tight td-wd td-col-ls">{{a.itemDetailValue}} &nbsp;↓</td>
+                        <td>{{a.rangestd}} &nbsp; {{a.itemDetailUnits}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="layui-row  weui-bg-fff weui-margin-bot" ng-if="reportType == 2">
+            <img src="data:image/gif;base64,R0lGODlhDwAPAKECAAAAzMzM/////
+wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4ML
+wWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==" alt="Base64 encoded image" width="150" height="150" >
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="../lib/angular/angular.1.5.3.min.js"></script>
+<script src="../js/validators.js"></script>
+<script src="../js/util.js"></script>
+<script src="../static/layer/layer.js"></script>
+<script>
+    layui.use('form',function () {
+        var form = layui.form //获取form模块
+    });
+
+    var url = location.search; //获取url中"?"符后的字串 ('?modFlag=business&role=1')
+    var theRequest = new Object();
+    if ( url.indexOf( "?" ) != -1 ) {
+        var str = url.substr( url.indexOf( "?" ) +  1 ); //substr()方法返回从参数值开始到结束的字符串；
+        var strs = str.split( "=" );
+        theRequest = strs[1];
+        console.log( theRequest ); //此时的theRequest就是我们需要的参数；
+    }
+
+    var app = angular.module('reportDetailApp', ['ng']);
+    app.controller('reportLDetailController', function($scope,$http) {
+
+        $scope.reportType = '1';
+
+       init();
+
+       function init() {
+           $http({
+               method:"POST",
+               url : '/report/reportDetail',
+               data : {
+                   'tjbh':theRequest,
+                   'reportType' : $scope.reportType
+               },
+               headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+               transformRequest: function(obj) {
+                   var str = [];
+                   for(var p in obj){
+                       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                   }
+                   return str.join("&");
+               }
+           }).then(function successCallback(response) {
+               var dataMsg = response.data;
+               if(dataMsg.errorCode == 0){
+                   if($scope.reportType == 1){
+                       $scope.datas = dataMsg.data;
+                       console.log($scope.datas);
+                   }else if($scope.reportType == 2){
+//                       $('#reportImg').prop('src','data:image/jpg;base64,R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==');
+//                       $('#reportImg').prop('src','data:image/jpg;base64,' + dataMsg.data);
+//                       console.log('data:image/jpg;base64,' + dataMsg.data);
+                   }
+               }else{
+                   showSuccessDialog(dataMsg.errorMsg);
+               }
+           },function errorCallback(result) {
+               showErrorDialog(result);
+           });
+       }
+
+        $scope.list = function () {
+            init();
+        }
+    })
+
+</script>
+</body>
+</html>

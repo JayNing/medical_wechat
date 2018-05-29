@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>报告查询</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/plugins/dist/css/weui.css">
+</head>
+<body style="background-color: #F2FAFC;">
+
+<div class="order-contents" ng-app="reportListApp">
+    <div ng-controller="reportListController">
+        <div class="weui-list weui-bg-fff zdy-height">
+            <div class="center-left-icon"><img ng-src="{{headImgUrl}}"  class="center-baogao-logo" style="width: 40px;"/></div>
+            <div class="center-info-right right-pad">
+                <div class="center-list-title">
+                    <label class="footer-bs-color" ng-model="username">{{username}}</label>，欢迎你
+                </div>
+                <div class="center-right-icon center-right-icons" onclick="location.href='/templates/trend.html'">
+                    <label><img src="../static/images/zs_icon.png" class="history-qs-icon"/>历史趋势</label>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <table class="baogao-table">
+                <tr class="baogao-tr">
+                    <th>
+                        <p class="baogao-r-solid">体检时间</p></th>
+                    <th>报告详情</th>
+                </tr>
+                <tr class="baogao-tr tr-bg" ng-repeat="p in datas">
+                    <td class="td-tight">{{p.reportDateShow}}</td>
+                    <td ng-click="reportDetail(p)">查看报告</td>
+              </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../lib/angular/angular.1.5.3.min.js"></script>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../js/validators.js"></script>
+<script src="../js/util.js"></script>
+<script src="../static/layer/layer.js"></script>
+<script src="../static/plugins/layui/layui.js"></script>
+<script>
+    var app = angular.module('reportListApp', ['ng']);
+    app.controller('reportListController', function($scope,$http) {
+        init();
+
+        function init(){
+            $http({
+                method:"POST",
+                url:"/loadNormalUserInfo",
+                data:{},
+                headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj){
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                }
+            }).then(function successCallback(result) {
+                if (result.data.errorCode == 0) {
+
+                    $scope.headImgUrl =  result.data.data.headImgUrl;
+                    $scope.username =  result.data.data.username;
+                      initList();
+                } else {
+                    showErrorDialog(result.data.errorMsg);
+                }
+            },function errorCallback(result) {
+                showErrorDialog(err);
+            });
+
+        }
+        function initList() {
+            //检查有有几条数据，大于1条，展示列表，否则展示详情
+
+            $http({
+                method:"POST",
+                url:"/report/list",
+                data:{},
+                headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj){
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                }
+            }).then(function successCallback(response) {
+                var result = response.data;
+                if(result.errorCode == 0){
+                    var length = result.data.length;
+                    if(length == 1){
+                        window.location.href = "/templates/reportDetail.html?tjbh=" + result.data[0].reportId;
+                    }else{
+                        $scope.datas = result.data;
+                    }
+                }else{
+                    showErrorDialog(result.errorMsg);
+                }
+            },function errorCallback(result) {
+                showErrorDialog(err);
+            });
+
+        }
+
+        $scope.reportDetail = function (data) {
+            window.location.href = "/templates/reportDetail.html?tjbh=" + data.reportId;
+        }
+    }
+ )
+
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/plugins/dist/css/weui.css">
+</head>
+<body style="background-color: #F2FAFC;">
+
+<div class="order-contents">
+    <div class="center-top">
+        <div class="center-w-tx">
+            <img id="headImgUrl" src="" class="center-topbgs"/>
+        </div>
+        <div class="center-n-r">
+            <p class="center-title weui-fcolor" id="username"></p>
+            <p id="phone"></p>
+        </div>
+    </div>
+    <div class="weui-list weui-bg-fff weui-margin-bot">
+        <div class="center-left-icon"><img src="../static/images/center-user.png"/></div>
+        <div class="center-info-right" onclick="location.href='/templates/personInfo.html'">
+            <div class="center-list-title" >
+                <label class="layui-label-color1">个人信息</label>
+            </div>
+            <div class="center-right-icon">
+                <label><i class="layui-icon layui-icon-color">&#xe602;</i></label>
+            </div>
+        </div>
+    </div>
+    <div class="weui-list weui-bg-fff ">
+        <div class="center-left-icon"><img src="../static/images/yuyue-icon.png"/></div>
+        <div class="center-info-right bot-solid-2" onclick="location.href='/templates/appointmentHome.html'">
+            <div class="center-list-title " >
+                <label class="layui-label-color1">预约管理</label>
+                <label class="center-info-nums">5</label>
+            </div>
+            <div class="center-right-icon">
+                <label><i class="layui-icon layui-icon-color">&#xe602;</i></label>
+            </div>
+        </div>
+    </div>
+    <div class="weui-list weui-bg-fff ">
+        <div class="center-left-icon"><img src="../static/images/order-icon.png"/></div>
+        <div class="center-info-right bot-solid-2" onclick="weikaifang()">
+            <div class="center-list-title " >
+                <label class="layui-label-color1">订单服务</label>
+                <label class="center-info-nums">3</label>
+            </div>
+            <div class="center-right-icon">
+                <label><i class="layui-icon layui-icon-color">&#xe602;</i></label>
+            </div>
+        </div>
+    </div>
+    <div class="weui-list weui-bg-fff weui-margin-bot">
+        <div class="center-left-icon"><img src="../static/images/dj-icon.png"/></div>
+        <div class="center-info-right">
+            <div class="center-list-title " onclick="weikaifang()">
+                <label class="layui-label-color1">导检服务</label>
+                <label class="center-info-nums">2</label>
+            </div>
+            <div class="center-right-icon">
+                <label><i class="layui-icon layui-icon-color">&#xe602;</i></label>
+            </div>
+        </div>
+    </div>
+    <div class="weui-list weui-bg-fff ">
+        <div class="center-left-icon"><img src="../static/images/bg-icon.png"/></div>
+        <div class="center-info-right bot-solid-2" onclick="searchReport()">
+            <div class="center-list-title " >
+                <label class="layui-label-color1">报告查询</label>
+            </div>
+            <div class="center-right-icon">
+                <label><i class="layui-icon layui-icon-color">&#xe602;</i></label>
+            </div>
+        </div>
+    </div>
+    <div class="weui-list weui-bg-fff weui-margin-bot">
+        <div class="center-left-icon"><img src="../static/images/sc-icon.png"/></div>
+        <div class="center-info-right" onclick="weikaifang()">
+            <div class="center-list-title " >
+                <label class="layui-label-color1">我的收藏</label>
+            </div>
+            <div class="center-right-icon">
+                <label><i class="layui-icon layui-icon-color">&#xe602;</i></label>
+            </div>
+        </div>
+    </div>
+    <div class="weui-list weui-bg-fff ">
+        <div class="center-left-icon"><img src="../static/images/shezhi-icon.png"/></div>
+        <div class="center-info-right">
+            <div class="center-list-title " onclick="weikaifang()">
+                <label class="layui-label-color1">设置</label>
+            </div>
+            <div class="center-right-icon">
+                <label><i class="layui-icon layui-icon-color">&#xe602;</i></label>
+            </div>
+        </div>
+    </div>
+    <!--底部样式-->
+    <div class="layui-row">
+        <div class="center-footer">
+            <div class="footer-kd layui-home1" onclick="location.href = '/templates/home.html'">
+                <p class="footer-p-h">
+                    <img src="../static/images/center_home1.png" class="footer-home-icon center-home2"/>
+                    <!--<img src="../static/images/center_home2.png" class="footer-home-icon center-home2"/>-->
+                </p>
+                <p class="footer-p-h footer-home layui-label-color1">首页</p>
+            </div>
+            <div class="footer-kd layui-home2"  onclick="location.href = '/templates/personalCenter.html'">
+                <p class="footer-p-h">
+                    <img src="../static/images/center_user2.png" class="footer-home-icon center-user1" style="width: 16px;height:19px;"/>
+                    <!--<img src="../static/images/center_user2.png" class="footer-home-icon center-user2"/>-->
+                </p>
+                <p class="footer-p-h  footer-home  footer-bs-color" > 个人中心</p>
+            </div>
+        </div>
+    </div>
+    <!--底部样式end-->
+</div>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/plugins/layui/layui.js"></script>
+<script src="../js/validators.js"></script>
+<script src="../js/util.js"></script>
+<script type="text/javascript" src="../lib/angular/angular.1.5.3.min.js"></script>
+<script>
+
+    init();
+
+    function weikaifang() {
+        showErrorDialog("此功能正在紧急研发中");
+    }
+
+    function searchReport() {
+
+        var href = '';
+
+        $.ajax({
+            url : '/report/list',
+            data : {
+
+            },
+            async: false,
+            type : 'POST',
+            dataType : 'json',
+            success : function(dataMsg){
+                if(dataMsg.errorCode == 0){
+                    var length = dataMsg.data.length;
+                    if(length == 1){
+                        href = "/templates/reportDetail.html?tjbh=" + dataMsg.data[0].reportId;
+                    }else{
+                        href = "/templates/reportList.html"
+                    }
+                }else{
+                    showErrorDialog(dataMsg.errorMsg);
+                }
+            },
+            error : function(err){
+                showErrorDialog(err);
+            }
+        });
+
+        console.log("href : " + href);
+
+        window.location.href = href;
+
+    }
+
+
+    function init() {
+        $.ajax({
+            url : '/loadNormalUserInfo',
+            data : {
+            },
+            async: false,
+            type : 'POST',
+            dataType : 'json',
+            success : function(dataMsg){
+                console.log(dataMsg);
+                if(dataMsg.errorCode == 0){
+                    var headImgUrl = dataMsg.data.headImgUrl;
+                    var username = dataMsg.data.username;
+                    var phone = dataMsg.data.phone;
+                    $("#headImgUrl").attr('src',headImgUrl);
+                    $("#username").html(username)
+                    $("#phone").html(phone)
+                }else{
+                    showSuccessDialog(dataMsg.errorMsg);
+                }
+            },
+            error : function(err){
+                console.log(err);
+            }
+        });
+    }
+
+
+</script>
+
+<script>
+    $(function () {
+        $('#dd').click(function () {
+
+            $.ajax({
+
+                url:"http://www.badu",
+                type:post,
+                success:function (result) {
+                    $()
+                }
+
+            });
+
+        });
+    });
+</script>
+</body>
+</html>

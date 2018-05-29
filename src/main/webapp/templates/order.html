@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>结果下单</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/plugins/dist/css/weui.css">
+    <style>
+        .layui-form-radio{
+            margin:0px;
+        }
+    </style>
+</head>
+<body style="background-color: #F2FAFC;">
+
+<div class="order-contents layui-pad-bot5">
+    <!--头部-->
+    <div class="layui-padd15  order-bg-3 layui-bott-xd">
+        <div class="layui-row ">
+            <div class="layui-col-xs2">
+                <img src="../static/images/mv.jpg" class="layui-order-tx"/>
+            </div>
+            <div class="layui-col-xs10">
+                <p class="weui-fcolor2">张三丰</p>
+                <p class="layui-sfz-col">320722199010105410</p>
+            </div>
+        </div>
+    </div>
+    <!--头部end-->
+    <!--内容-->
+    <div class="layui-row  weui-bg-fff weui-margin-bot">
+        <div class="layui-col-xs12  layui-padd15">
+            <div class="layui-col-xs6 layui-font-weight">所选项目</div>
+            <!--<div class="layui-col-xs6 login-wjm">待检</div>-->
+        </div>
+        <div class="layui-col-xs12  layui-padd15 layui-top-solid">
+            <div class="layui-col-xs1 footer-bs-color">-</div>
+            <div class="layui-col-xs6 ">入职体检（A套餐）</div>
+            <div class="layui-col-xs5 login-wjm td-col-red">￥80元</div>
+        </div>
+        <div class="layui-col-xs12  layui-padd15 layui-top-solid">
+            <div class="layui-col-xs1 footer-bs-color">-</div>
+            <div class="layui-col-xs6 ">心血管检查</div>
+            <div class="layui-col-xs5 login-wjm td-col-red">￥80元</div>
+        </div>
+        <div class="layui-col-xs12  layui-padd15 layui-top-solid">
+            <div class="layui-col-xs1 footer-bs-color">-</div>
+            <div class="layui-col-xs6 ">心室检查</div>
+            <div class="layui-col-xs5 login-wjm td-col-red">￥50元</div>
+        </div>
+    </div>
+    <div class="layui-row  weui-bg-fff weui-margin-bot">
+        <div class="layui-col-xs12  layui-padd15 bot-solid-2">
+            <div class="layui-col-xs1 "><img src="../static/images/ysh_icon.png" class="layui-ysh-bz"/> </div>
+            <div class="layui-col-xs11 ">尹山湖体检中心</div>
+        </div>
+        <div class="layui-col-xs12  layui-padd15">
+            <div class="layui-col-xs1 "><img src="../static/images/gps_icon.png" class="layui-ysh-bz"/> </div>
+            <div class="layui-col-xs11 ">苏州工业园区尹山湖路125号</div>
+        </div>
+    </div>
+    <div class="layui-row  weui-bg-fff weui-margin-bot">
+        <div class="layui-col-xs12  layui-padd1015 ">
+            <div class="layui-col-xs3 layui-font-weight">支付方式</div>
+        </div>
+        <div class="layui-col-xs12  layui-padd5515 ">
+            <div class="layui-form layui-xz-ic ">
+                <div class="layui-row layui-width-pay">
+                    <div class="layui-col-xs6">
+                        <input type="radio" name="payType" value="online" title="" checked >
+                        <img src="../static/images/weixin_icon.png" class="layui-ysh-bzs"/>
+                        线上支付
+                    </div>
+                    <div class="layui-col-xs6" onclick="weikaifang()">
+                        <input type="radio" name="payType" value="offline" title="" >
+                        <img src="../static/images/xcpay_icon.png" class="layui-ysh-bzs"/>
+                        体验现场支付
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row  weui-bg-fff weui-margin-bot">
+      <!--  <a href="#" class="layui-tc-fp">
+            <div class="layui-col-xs12  layui-padd15 bot-solid-2 layui-line-h25" >
+                <div class="layui-col-xs8 layui-font-weight">发票信息</div>
+                <div class="layui-col-xs3 login-wjm weui-fcolor3">不开发票</div>
+                <div class="layui-col-xs1 login-wjm"><i class="layui-icon">&#xe602;</i></div>
+            </div>
+        </a>-->
+        <div class="layui-col-xs12  layui-padd15 layui-line-h25">
+            <div class="layui-col-xs6 layui-font-weight">订单编号</div>
+            <div class="layui-col-xs6 login-wjm weui-fcolor3">142365213625632452361</div>
+        </div>
+    </div>
+    <!--内容end-->
+
+
+    <!--弹出层-->
+    <div class="layui-row layui-kp-tc">
+        <form class="layui-form" action="">
+            <div class="layui-col-xs12 layui-padd515   order-bg-2">
+                <div class="layui-row  ">
+                    <div class="layui-col-xs2 "><a href="#" class="weui-fcolor2  layui-can-kp">取消</a></div>
+                    <div class="layui-col-xs8 layui-zxt">发票信息</div>
+                    <div class="layui-col-xs2 login-wjm "><a href="#" class="weui-fcolor2">确定</a></div>
+                </div>
+            </div>
+
+            <div class="layui-col-xs12  layui-padd5155 weui-bg-fff">
+                <div class="layui-row  bot-solid-2 layui-line-h40" >
+                    <div class="layui-col-xs9 layui-font-weight" >不开发票</div>
+                    <div class="layui-col-xs3 login-wjm">
+                        <input type="radio" name="pay" value="" title="" >
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs12  layui-padd5155 weui-bg-fff layui-font-weight">
+                开发票
+            </div>
+            <div class="layui-col-xs12  layui-padd5155 weui-bg-fff">
+                <div class="layui-row ">
+                    <div class="layui-col-xs3">开票主体</div>
+                    <div class="layui-col-xs9 layui-text-left">
+                        <input type="radio" name="pay" value="" title="体检机构"  checked>
+                        <input type="radio" name="pay" value="" title="个人" >
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs12  layui-padd10 weui-bg-fff layui-pad-bot">
+                <div class="layui-row ">
+                    <div class="layui-col-xs12">
+                        <input type="text" name="title" placeholder="发票抬头"  class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--弹出层end-->
+    <!--遮罩层-->
+    <div class="layui-zhezc"></div>
+    <!--遮罩层end-->
+    <!--底部-->
+    <div class="layui-row layui-zxt weui-bg-fff layui-jg-footer">
+        <div class="layui-col-xs5">
+            共计：<label class="td-col-red">230元</label>
+        </div>
+        <a href="#">
+            <div class="layui-col-xs7 order-bg-2" onclick="pay()">
+                去支付
+            </div>
+        </a>
+    </div>
+    <!--底部end-->
+
+</div>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/plugins/layui/layui.js"></script>
+<script src="../js/validators.js"></script>
+<script src="../js/util.js"></script>
+<script type="text/javascript" src="../lib/angular/angular.1.5.3.min.js"></script>
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        // form.on('submit(formDemo)', function(data){
+        //     layer.msg(JSON.stringify(data.field));
+        //     return false;
+        // });
+    });
+
+    var appId,timeStamp,nonceStr,package,signType,paySign;
+    function pay(){
+
+        var url = "/pay/payMoney?total_fee=1&body=测试付款";
+        $.get(url,function(data) {
+            var result = data.data;
+            appId = result.appId;
+            timeStamp = result.timeStamp;
+            nonceStr = result.nonceStr;
+            package = result.package;
+            signType = result.signType;
+            paySign = result.paySign;
+
+            if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady',
+                        onBridgeReady, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady',
+                        onBridgeReady);
+                    document.attachEvent('onWeixinJSBridgeReady',
+                        onBridgeReady);
+                }
+            } else {
+                onBridgeReady();
+            }
+        });
+
+    }
+
+    function weikaifang() {
+        showSuccessDialog("此功能正在紧急研发中")
+    }
+
+    function payMoney() {
+        var a = $("input[name='payType']:checked").val();
+        console.log("支付方式 ： " + a);
+        window.location.href = "/pay.html"
+    }
+
+    $(function () {
+        //开票信息点击
+        $('.layui-tc-fp').click(function () {
+            $('.layui-kp-tc').show();
+            $('.layui-zhezc').show();
+        });
+        //遮罩层点击
+        $('.layui-zhezc').click(function () {
+            $('.layui-kp-tc').hide();
+            $('.layui-zhezc').hide();
+        });
+        //取消点击
+        $('.layui-can-kp').click(function () {
+            $('.layui-kp-tc').hide();
+            $('.layui-zhezc').hide();
+        });
+    });
+
+    function onBridgeReady(){
+        WeixinJSBridge.invoke( 'getBrandWCPayRequest', {
+                "appId":appId,     //公众号名称,由商户传入
+                "timeStamp":timeStamp,         //时间戳,自1970年以来的秒数
+                "nonceStr":nonceStr, //随机串
+                "package":package,
+                "signType":signType,         //微信签名方式：
+                "paySign":paySign //微信签名
+            },
+            function(res){
+                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                    console.log('支付成功');
+                    //支付成功后跳转的页面
+                }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+                    console.log('支付取消');
+                }else if(res.err_msg == "get_brand_wcpay_request:fail"){
+                    console.log('支付失败');
+                    WeixinJSBridge.call('closeWindow');
+                } //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok,但并不保证它绝对可靠。
+            });
+    }
+
+</script>
+</body>
+</html>

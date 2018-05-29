@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>预约默认</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/plugins/dist/css/weui.css">
+    <style>
+        input::-webkit-input-placeholder { /* WebKit browsers */color: #ffffff;}
+        input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */color: #ffffff;}
+        input::-moz-placeholder { /* Mozilla Firefox 19+ */color: #ffffff;}
+        input:-ms-input-placeholder { /* Internet Explorer 10+ */color: #ffffff;}
+        .layui-form-select dl dd.layui-this{
+            background-color: #34C0E3;
+        }
+    </style>
+</head>
+<body style="background-color: #F2FAFC;">
+
+<div class="order-contents" ng-app="appointmentHomeApp">
+    <div ng-controller="appointmentHomeController">
+     <!--   <div class="layui-padd15   layui-bg-lan">
+            <div class="layui-row layui-col-space8">
+
+                <div class="layui-col-xs4">
+                        <div class="layui-col-xs4">
+                        <div class=" layui-xiala" >
+                            <div class="layui-form" lay-filter="test1">
+                                <select ng-model="appointment_info.province"  lay-verify="required" ng-change="provinceChange()" lay-ignore>
+                                    <option ng-repeat="province in AddressSelect.provinces" value="{{province.code}}" >{{province.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form layui-xiala" ng-if="AddressSelect.citys.length > 0">
+                        <select ng-model="appointment_info.city" md-on-open=""  ng-change="cityChange();" lay-ignore>
+                            <option ng-repeat="city in AddressSelect.citys" value="{{city.code}}">{{city.name}}</option>
+                        </select>
+                    </div>
+                    <div class="layui-form layui-xiala" ng-if="AddressSelect.areas.length > 0" >
+                        <select ng-model="appointment_info.area" md-on-open="" ng-change="areaChange()"  lay-ignore>
+                            <option ng-repeat="area in AddressSelect.areas" value="{{area.code}}">{{area.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+        </div>
+
+        <div class="layui-row weui-bg-fff weui-margin-bot">
+            <div class="layui-col-xs12">
+                <div class="layui-form layui-xz-search">
+                    <select ng-model="appointment_info.organization"  lay-verify=""  lay-search  lay-ignore>
+                        <option ng-repeat="organization in organizations" value="{{organization.id}}">{{organization.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-col-xs12 layui-row-lin layui-top-solidlan ">
+                <div class="laui-row">
+                    <div class="layui-col-xs12 layui-postions">
+                        <div class="layui-form layui-xz-search">
+                            <select ng-model="appointment_info.combo" lay-verify=""  lay-search lay-ignore>
+                                <option ng-repeat="combo in combos" value="{{combo.id}}">{{combo.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class=" layui-ok-btn login-wjm layui-zxt">
+                            <a href="javascript:void(0)" class="layui-tj-btns-qr" onclick="weikaifang()">确认</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+-->
+        <div class="layui-row weui-bg-fff weui-margin-bot ">
+            <div class="layui-col-xs12 layui-padd10 bot-solid-2">
+                <div class="layui-row layui-line-h">
+                    <div class="layui-col-xs9 layui-font-weight">入职体检（A套餐）</div>
+                    <div class="layui-col-xs2 td-col-red">￥80元</div>
+                    <div class="layui-col-xs1"><i class="layui-icon" onclick="weikaifang()">&#xe640;</i></div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12 weui-fcolor3">
+                        简介：该套餐针对新入职的白领员工，一站式服务，帮助您快速的完成入职体检流程，节约您宝贵的时间。
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-padd10">
+                <div class="layui-row">
+                    <div class="layui-col-xs11 td-col-ls layui-font-weight">体检项明细</div>
+                    <div class="layui-col-xs1">
+                        <i class="layui-icon layui-right-i-btn">&#xe602;</i>
+                        <i class="layui-icon layui-bott-i-btn" style="color:#34C0E3;">&#xe61a;</i>
+                    </div>
+                </div>
+            </div>
+            <!--体检项明细折叠-->
+            <div class=" tck-zd layui-col-xs12">
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">抽血</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">血常规</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">肝功能</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">血型</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">胸透</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--体检项明细折叠end-->
+        </div>
+
+        <div class="layui-row weui-bg-fff weui-margin-bot ">
+            <div class="layui-col-xs12 layui-padd10 bot-solid-2">
+                <div class="layui-row layui-line-h">
+                    <div class="layui-col-xs9 layui-font-weight">入职体检（A套餐）</div>
+                    <div class="layui-col-xs2 td-col-red">￥80元</div>
+                    <div class="layui-col-xs1"><i class="layui-icon" onclick="weikaifang()">&#xe640;</i></div>
+                </div>
+                <div class="layui-row">
+                    <div class="layui-col-xs12 weui-fcolor3">
+                        简介：该套餐针对新入职的白领员工，一站式服务，帮助您快速的完成入职体检流程，节约您宝贵的时间。
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-padd10 layui-click-tc">
+                <div class="layui-row">
+                    <div class="layui-col-xs11 td-col-ls layui-font-weight">体检项明细</div>
+                    <div class="layui-col-xs1">
+                        <i class="layui-icon layui-right-i-btn">&#xe602;</i>
+                        <i class="layui-icon layui-bott-i-btn" style="color:#34C0E3;">&#xe61a;</i>
+                    </div>
+                </div>
+            </div>
+            <!--体检项明细折叠-->
+            <div class=" tck-zd layui-col-xs12">
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">抽血</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">血常规</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">肝功能</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">血型</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-padd10 layui-top-solid">
+                    <div class="layui-col-xs12">
+                        <div class="layui-row">
+                            <div class="layui-col-xs1 footer-bs-color">-</div>
+                            <div class="layui-col-xs2 layui-font-weight">胸透</div>
+                            <div class="layui-col-xs9">化验（均使用一次性真空负压采血管）</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--体检项明细折叠end-->
+        </div>
+
+        <div class="layui-padd15 ">
+            <div class="layui-row">
+                <div class="layui-col-xs12 ">
+                    <button class="layui-btn-tj" ng-click="next()">下一步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/plugins/layui/layui.js"></script>
+<script src="../js/validators.js"></script>
+
+<script src="../js/util.js"></script>
+<script type="text/javascript" src="../lib/angular/angular.1.5.3.min.js"></script>
+<script>
+    $(function () {
+
+        $(".tck-zd").hide();
+
+        var oneF = document.getElementsByClassName('tck-zd');
+        var oneR = document.getElementsByClassName('layui-right-i-btn');
+        var oneB = document.getElementsByClassName('layui-bott-i-btn');
+        oneF[0].style.display='block';
+        oneR[0].style.display='none';
+        oneB[0].style.display='block';
+
+        $('.layui-right-i-btn').on('click',function () {
+            $(this).parent().parent().parent().next("div").css({
+                'display':'block !important'
+            });
+
+            if($(this).parent().parent().parent().next("div").css("display")=='none'){
+                $(this).parent().parent().parent().next("div").show();
+                $(this).hide();
+                $(this).siblings("i").show();
+            }else{
+                $(this).parent().parent().parent().next("div").hide();
+                $(this).show();
+                $(this).siblings("i").hide();
+            }
+        });
+        $('.layui-bott-i-btn').on('click',function () {
+            $(this).parent().parent().parent().next("div").css({
+                'display':'none !important'
+            });
+            if($(this).parent().parent().parent().next("div").css("display")=='block'){
+                $(this).parent().parent().parent().next("div").hide();
+                $(this).hide();
+                $(this).siblings("i").show();
+            }
+        });
+    });
+
+    function weikaifang() {
+        showErrorDialog("此功能正在紧急研发中");
+    }
+
+    var app = angular.module('appointmentHomeApp', ['ng']);
+    app.controller('appointmentHomeController', function($scope,$http) {
+
+        $scope.appointment_info = {
+            province : "",
+            city : "",
+            area : "",
+            organization : "",
+            combo : ""
+        };
+        //省市区三级联动
+        $scope.AddressSelect = {
+            provinces : [],
+            citys : [],
+            areas : []
+        };
+
+        $scope.next = function () {
+
+            window.location.href = "/templates/questionnaire.html?organizationId=123&packageId=123,234,567,789";
+        }
+        
+      //  provincelist();
+//        test();
+
+        $scope.comboChange = function () {
+//            $scope.appointment_info.combo = "选择套餐";
+            console.log($scope.appointment_info);
+            //级联查询机构的套餐
+            $http({
+                method:"POST",
+                url : '/search/comboDetail',
+                data : {
+                    'combo': $scope.appointment_info.combo
+                },
+                headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj){
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                }
+            }).then(function successCallback(response) {
+                var dataMsg = response.data;
+                if(dataMsg.errorCode == 0){
+                   console.log(dataMsg.data);
+                }else{
+                    showErrorDialog(dataMsg.errorMsg);
+                }
+            },function errorCallback(result) {
+                showErrorDialog(result);
+            });
+        }
+
+        $scope.organizationChange = function () {
+//            $scope.appointment_info.combo = "选择套餐";
+            console.log($scope.appointment_info);
+            //级联查询机构的套餐
+            $http({
+                method:"POST",
+                url : '/search/combolist',
+                data : {
+                    'provinceCode': $scope.appointment_info.province,
+                    'cityCode': $scope.appointment_info.city,
+                    'areaCode': $scope.appointment_info.area,
+                    'organization': $scope.appointment_info.organization
+                },
+                headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj){
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                }
+            }).then(function successCallback(response) {
+                var dataMsg = response.data;
+                if(dataMsg.errorCode == 0){
+                    $scope.combos =  dataMsg.data;
+                }else{
+                    showErrorDialog(dataMsg.errorMsg);
+                }
+            },function errorCallback(result) {
+                showErrorDialog(result);
+            });
+        }
+
+        $scope.areaChange = function () {
+//            $scope.appointment_info.organization = "选择或输入机构名称";
+            console.log($scope.appointment_info);
+            //级联查询区域内的机构
+            $http({
+                method:"POST",
+                url : '/search/organizationlist',
+                data : {
+                    'provinceCode': $scope.appointment_info.province,
+                    'cityCode': $scope.appointment_info.city,
+                    'areaCode': $scope.appointment_info.area
+                },
+                headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj){
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                }
+            }).then(function successCallback(response) {
+                var dataMsg = response.data;
+                if(dataMsg.errorCode == 0){
+                    $scope.organizations =  dataMsg.data;
+                }else{
+                    showErrorDialog(dataMsg.errorMsg);
+                }
+            },function errorCallback(result) {
+                showErrorDialog(result);
+            });
+        }
+
+        $scope.provinceChange = function() {
+            $scope.appointment_info.city = "请选择";
+            $scope.appointment_info.area = "请选择";
+            var provincecode = $scope.appointment_info.province;
+            if (provincecode != "") {
+               citylist(provincecode);
+                $scope.AddressSelect.areas = [];
+            } else {
+                $scope.AddressSelect.citys = [];
+                $scope.AddressSelect.areas = [];
+            }
+        }
+        $scope.cityChange = function() {
+            $scope.appointment_info.area = "请选择";
+            var citycode = $scope.appointment_info.city;
+            if (citycode != "") {
+                arealist(citycode);
+            } else {
+                $scope.AddressSelect.areas = [];
+            }
+        }
+
+
+        function provincelist() {
+
+            $http({
+                method:"POST",
+                url : '/public/common/provincelist',
+                data : {
+
+                },
+                headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj){
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                }
+            }).then(function successCallback(response) {
+                var dataMsg = response.data;
+                if(dataMsg.errorCode == 0){
+                    $scope.AddressSelect.provinces =  dataMsg.data;
+
+                }else{
+                    showErrorDialog(dataMsg.errorMsg);
+                }
+            },function errorCallback(result) {
+                showErrorDialog(result);
+            });
+        }
+
+        function citylist(provinceCode) {
+
+            $http({
+                method:"POST",
+                url : '/public/common/citylist',
+                data : {
+                   'provincecode' : provinceCode
+                },
+                headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj){
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                }
+            }).then(function successCallback(response) {
+                var dataMsg = response.data;
+                if(dataMsg.errorCode == 0){
+                   $scope.AddressSelect.citys = dataMsg.data;
+
+                }else{
+                    showErrorDialog(dataMsg.errorMsg);
+                }
+            },function errorCallback(result) {
+                showErrorDialog(result);
+            });
+        }
+
+        function arealist(citycode) {
+            var datas = [];
+            $http({
+                method:"POST",
+                url : '/public/common/arealist',
+                data : {
+                    'citycode' : citycode
+                },
+                headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj){
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                }
+            }).then(function successCallback(response) {
+                var dataMsg = response.data;
+                if(dataMsg.errorCode == 0){
+                    $scope.AddressSelect.areas = dataMsg.data;
+                }else{
+                    showErrorDialog(dataMsg.errorMsg);
+                }
+            },function errorCallback(result) {
+                showErrorDialog(result);
+            });
+            return datas;
+        }
+//        test();
+
+        function test() {
+            layui.use('form', function(){
+                var form = layui.form;
+                form.render();
+                //各种基于事件的操作，下面会有进一步介绍
+            });
+        }
+
+    });
+
+
+    </script>
+</div>
+</body>
+</html>

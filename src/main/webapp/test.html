@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>详情</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="static/plugins/dist/css/weui.css">
+</head>
+<body style="background-color: #F2FAFC;">
+
+<div class="order-contents  layui-bottom-m">
+    <!--头部-->
+        <div class="layui-row ">
+              <div class="layui-col-xs12">
+                  <img src="static/images/yishengjc_icon.jpg" class="layui-tc-img"  style="height: 230px;"/>
+              </div>
+        </div>
+    <!--头部end-->
+ <!--内容-->
+    <div class="layui-row  weui-bg-fff weui-margin-bot">
+        <div class="layui-col-xs12  layui-padd15">
+            <div class="layui-col-xs2 layui-font-weight td-col-ls">公告</div>
+            <div class="layui-col-xs10 ">6月机构整顿，停止体检一个月</div>
+        </div>
+    </div>
+    <div class="layui-row  weui-bg-fff weui-margin-bot">
+        <div class="layui-col-xs12  layui-padd515">
+            <div class="layui-col-xs10 layui-font-weight ">入职体检(A套餐)</div>
+            <div class="layui-col-xs2  login-wjm td-col-red">￥80元</div>
+        </div>
+        <div class="layui-col-xs12 layui-padd6 weui-fcolor3">
+            <label>简介：该套餐针对新入职的白领员工，一站式服务，帮助您快速的完成入职体检流程，节约您宝贵的时间。</label>
+        </div>
+    </div>
+    <div class="layui-row  weui-bg-fff weui-margin-bot">
+        <div class="layui-col-xs12  layui-padd15 bot-solid-2">
+            <div class="layui-col-xs1 "><img src="static/images/ysh_icon.png" class="layui-ysh-bz"/> </div>
+            <div class="layui-col-xs11 ">尹山湖体检中心</div>
+        </div>
+        <div class="layui-col-xs12  layui-padd15">
+            <div class="layui-col-xs1 "><img src="static/images/gps_icon.png" class="layui-ysh-bz"/> </div>
+            <div class="layui-col-xs11 ">苏州工业园区尹山湖路125号</div>
+        </div>
+    </div>
+    <div class="layui-row  weui-bg-fff weui-margin-bot">
+         <div class="layui-col-xs12 layui-tr-hd  layui-tr-zdi">
+           <label class="layui-jbx ">体检项明细</label>
+         </div>
+        <div class="layui-col-xs12  layui-padd15 layui-top-solid">
+            <div class="layui-col-xs1 footer-bs-color">-</div>
+            <div class="layui-col-xs3 layui-font-weight">抽血</div>
+            <div class="layui-col-xs8 layui-text-left layui-r-s ">化验（均使用一次性真空负压采血管）</div>
+        </div>
+        <div class="layui-col-xs12  layui-padd15 layui-top-solid">
+            <div class="layui-col-xs1 footer-bs-color">-</div>
+            <div class="layui-col-xs3 layui-font-weight ">常规项</div>
+            <div class="layui-col-xs8 layui-text-left layui-r-s">共18项</div>
+        </div>
+    </div>
+ <!--内容end-->
+    <!--底部-->
+    <div class="layui-row layui-xq-footer">
+       <div class="layui-col-xs3 layui-tj-h  weui-bg-fff">
+          <div class="layui-row">
+              <div class="layui-col-xs12 footer-p-h">
+                  <img src="static/images/shoucang_icon.png" class="layui-footer-shoucang"/>
+              </div>
+              <div class="layui-col-xs12 footer-p-h">收藏</div>
+          </div>
+       </div>
+       <div class="layui-col-xs9 layui-tj-h  layui-yy-tj">
+           <a href="javascript:sendTmpMsg();">预约体检</a>
+       </div>
+    </div>
+    <!--底部end-->
+</div>
+<script src="static/js/jquery.min.js"></script>
+<script src="static/plugins/layui/layui.js"></script>
+
+<script type="text/javascript">
+    function sendTmpMsg(){
+        $.ajax({
+            url : '/wechatMsg/sendTmpMsg',
+            data : {
+
+            },
+            async: false,
+            type : 'POST',
+            dataType : 'json',
+            success : function(dataMsg){
+                console.log(dataMsg);
+                if(dataMsg.errorCode == 0){
+                    $("#msg").html(dataMsg.data);
+                }else{
+                    showErrorDialog(dataMsg.errorMsg);
+                }
+            },
+            error : function(err){
+                showErrorDialog(err);
+                return;
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

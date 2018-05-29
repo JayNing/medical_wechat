@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>修改手机</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/plugins/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/plugins/dist/css/weui.css">
+</head>
+<body style="background-color: #ffffff">
+
+<div class="order-contents"  ng-app="modifyPhoneApp" ng-controller="modifyPhoneController">
+    <div class="order-login-status ">
+        <div class="login-sty bot-solid-2">
+            <label class="login-y-name td-col-ls">原手机号</label>
+            <input type="text" placeholder="请输入手机号"  ng-model="phone"  class="login-input-a"/>
+            <!--<input type="text" placeholder="请输入手机号" class="login-input-a"/>-->
+        </div>
+        <div class="login-sty bot-solid-2  login-r-re">
+            <label class="login-y-name ">验证码</label>
+            <input type="text" placeholder="请输入验证码" ng-model="authCode" class="login-input-a login-input-ab"/>
+            <a class="login-hqy" href="javascript:void(0);" ng-click="sendAuthCode()" >获取验证码</a>
+        </div>
+        <div class="login-sty bot-solid-2">
+            <label class="login-y-name">新手机号</label>
+            <input type="text" placeholder="请输入新手机号" ng-model="newPhone" class="login-input-a"/>
+        </div>
+        <div class="login-sty login-stys">
+            <button class="login-btn" ng-click="reset()">提交</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/plugins/layui/layui.js"></script>
+<script src="../js/validators.js"></script>
+
+<script src="../js/util.js"></script>
+
+<script type="text/javascript" src="../lib/angular/angular.1.5.3.min.js"></script>
+
+<script>
+    var app = angular.module('modifyPhoneApp', ['ng']);
+    app.controller('modifyPhoneController', function($scope,$http) {
+        $http({
+            method: 'POST',
+            params:null,
+            url: '/regist/loadPhone'
+        }).then(function successCallback(response) {
+            var data = response.data;
+            if(data.errorCode == 0){
+                $scope.phone =data.data;
+            }else {
+                showErrorDialog(data.errorMsg);
+            }
+        }, function errorCallback(response) {
+            var data = response.data;
+            showErrorDialog(data.errorMsg);
+        });
+
+        $scope.sendAuthCode = function () {
+            var phone = $scope.phone;
+            if(phone && phone != ''){
+                if(validateMobile(phone)){
+                    $.ajax({
+                        url : '/regist/sendAuthCode',
+                        data : {
+                            'phone' : phone,
+                            'reason'  : 'reset'
+                        },
+                        async: false,
+                        type : 'POST',
+                        dataType : 'json',
+                        success : function(dataMsg){
+                            console.log(dataMsg);
+                            if(dataMsg.errorCode == 0){
+                                var authCode = dataMsg.data;
+                                $('#authCode').val(authCode);
+                            }else{
+                                showSuccessDialog(dataMsg.errorMsg);
+                            }
+                        },
+                        error : function(err){
+                            console.log(err);
+                        }
+                    });
+                }else {
+                    showErrorDialog('手机号格式不正确')
+                }
+            }else {
+                showErrorDialog('手机号不能为空');
+            }
+        }
+
+        $scope.reset = function () {
+            if(!validateMobile($scope.newPhone)){
+                showErrorDialog('新手机号格式不正确')
+            }
+            $.ajax({
+                url : '/regist/modifyPhone',
+                data : {
+                    'phone' : $scope.phone,
+                    'authCode'  : $scope.authCode,
+                    'newPhone'  : $scope.newPhone
+                },
+                async: false,
+                type : 'POST',
+                dataType : 'json',
+                success : function(dataMsg){
+                    console.log(dataMsg);
+                    if(dataMsg.errorCode == 0){
+                        showSuccessDialog("手机号码重置成功");
+                        setTimeout(function () {
+                            window.location.href = "/templates/personInfo.html";
+                        },1000)
+                    }else{
+                        showErrorDialog(dataMsg.errorMsg);
+                    }
+                },
+                error : function(err){
+                    showErrorDialog(err);
+                }
+            });
+        }
+
+    });
+</script>
+</body>
+</html>
